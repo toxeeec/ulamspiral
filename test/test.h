@@ -1,6 +1,7 @@
 #ifndef TEST_H
 #define TEST_H
 
+#include "../src/error.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -12,7 +13,7 @@
 		if (!(cond)) {                                                 \
 			char *msgf;                                            \
 			if (0 > asprintf(&msgf, msg, __VA_ARGS__)) {           \
-				exit(EXIT_FAILURE);                            \
+				PANIC();                                       \
 			}                                                      \
 			printf("FAIL: %s\n", __func__);                        \
 			printf("%s:%d: %s\n", __FILE__, __LINE__, msgf);       \
