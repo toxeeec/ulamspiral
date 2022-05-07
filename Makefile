@@ -4,6 +4,7 @@ SRC=src
 OBJ=obj
 OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(wildcard $(SRC)/*.c))
 TEST=test
+TESTH=test.h
 TESTBINS=$(patsubst $(TEST)/%.c, $(TEST)/bin/%, $(wildcard $(TEST)/*.c))
 BIN=bin
 
@@ -24,7 +25,7 @@ $(OBJ)/%.o: $(SRC)/%.c | $(OBJ)
 $(BIN)/main: $(OBJS) | $(BIN)
 	$(CC) $(CFLAGS) $(OBJS) -o $@
 
-$(TEST)/bin/%: $(TEST)/%.c $(OBJS)
+$(TEST)/bin/%: $(TEST)/%.c $(OBJS) $(TEST)/$(TESTH)
 	$(CC) $(CFLAGS) $< $(filter-out obj/main.o, $(OBJS)) -o $@
 
 $(TEST): $(TEST)/bin $(TESTBINS)
