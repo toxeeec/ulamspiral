@@ -1,4 +1,5 @@
 #include "primes.h"
+#include "error.h"
 #include <assert.h>
 #include <math.h>
 #include <string.h>
@@ -9,6 +10,7 @@ bool *isprime_range(size_t range)
 {
 	assert(range > 0);
 	bool *arr = malloc(sizeof(bool) * (range));
+	CHECK_POINTER(arr);
 	memset(arr, 1, sizeof(bool) * range);
 	arr[0] = false;
 	arr[1] = false;

@@ -15,4 +15,12 @@
 		}                                                              \
 	} while (0)
 
+#define CHECK_POINTER(x)                                                       \
+	do {                                                                   \
+		if ((x) == NULL) {                                             \
+			perror(PROGNAME);                                      \
+			exit(EXIT_FAILURE);                                    \
+		}                                                              \
+	} while (0)
+
 #endif
