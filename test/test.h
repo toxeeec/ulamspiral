@@ -16,6 +16,7 @@
 			}                                                      \
 			printf("FAIL: %s\n", __func__);                        \
 			printf("%s:%d: %s\n", __FILE__, __LINE__, msgf);       \
+			free(msgf);                                            \
 			return 1;                                              \
 		}                                                              \
 	} while (0)
