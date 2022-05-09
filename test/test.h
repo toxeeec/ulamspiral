@@ -12,7 +12,7 @@
 	do {                                                                   \
 		if (!(cond)) {                                                 \
 			char *msgf;                                            \
-			CHECK(asprintf(&msgf, msg, __VA_ARGS__));              \
+			CHECK(asprintf(&msgf, msg, __VA_ARGS__) == -1);        \
 			printf("FAIL: %s\n", __func__);                        \
 			printf("%s:%d: %s\n", __FILE__, __LINE__, msgf);       \
 			free(msgf);                                            \
