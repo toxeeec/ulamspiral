@@ -1,7 +1,9 @@
+#include "png.h"
 #include <stdio.h>
 
 int main()
 {
-	printf("hello world\n");
+	remove("test.png");
+	create_png_file("test.png", 10);
 	return 0;
 }

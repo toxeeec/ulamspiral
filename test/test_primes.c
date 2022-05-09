@@ -20,6 +20,9 @@ test_unit(test_isprime_range)
 				++got;
 			}
 		}
+
+		free(arr);
+
 		test_assert(want == got, "expected: %d, got: %d", want, got);
 	}
 	return 0;
