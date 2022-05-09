@@ -23,7 +23,7 @@ $(OBJ)/%.o: $(SRC)/%.c | $(OBJ)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 $(BIN)/main: $(OBJS) | $(BIN)
-	$(CC) $(CFLAGS) $(OBJS) -o $@
+	$(CC) $(CFLAGS) -lz $(OBJS) -o $@
 
 $(TEST)/bin/%: $(TEST)/%.c $(OBJS) $(TEST)/$(TESTH)
 	$(CC) $(CFLAGS) $< $(filter-out obj/main.o, $(OBJS)) -o $@
