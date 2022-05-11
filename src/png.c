@@ -185,8 +185,8 @@ void create_png_file(char *name, uint32_t width)
 
 	write_header(f, width);
 	write_palette(f, colors, 2);
-	uint8_t *data = (uint8_t *)isprime_range(width * width + 1);
-	write_data_palette_based(f, width, data + 1);
+	uint8_t *data = (uint8_t *)isprime_spiral(width);
+	write_data_palette_based(f, width, data);
 
 	free(data);
 
