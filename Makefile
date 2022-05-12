@@ -8,7 +8,7 @@ TESTH=test.h
 TESTBINS=$(patsubst $(TEST)/%.c, $(TEST)/bin/%, $(wildcard $(TEST)/*.c))
 BIN=bin
 
-all: run
+all: build
 
 $(BIN):
 	mkdir $@
@@ -31,8 +31,10 @@ $(TEST)/bin/%: $(TEST)/%.c $(OBJS) $(TEST)/$(TESTH)
 $(TEST): $(TEST)/bin $(TESTBINS)
 	for test in $(TESTBINS) ; do ./$$test ; done
 
-run: $(BIN)/main
-	./$^
+build: $(BIN)/main
+
+run: build
+	./$(BIN)/main
 
 release: CFLAGS=-o2 -DNDEBUG
 release: clean

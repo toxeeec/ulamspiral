@@ -1,5 +1,6 @@
 #include "png.h"
 #include "error.h"
+#include "flags.h"
 #include "primes.h"
 #include <arpa/inet.h>
 #include <assert.h>
@@ -170,10 +171,12 @@ static void write_trailer(FILE *f)
 	write_chunk(f, TRAILER_CHUNK_TYPE, NULL, 0);
 }
 
-void create_png_file(char *name, uint32_t width)
+void create_png_file(char *name, uint32_t width, uint32_t flags)
 {
-	// file exists
-	CHECK_WITH_CODE(!access(name, F_OK), EEXIST);
+	if (!(flags & FORCE)) {
+		// file exists
+		CHECK_WITH_CODE(!access(name, F_OK), EEXIST);
+	}
 
 	FILE *f = fopen(name, "wb");
 	CHECK_POINTER(f);

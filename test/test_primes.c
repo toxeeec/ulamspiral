@@ -23,7 +23,8 @@ test_unit(test_isprime_range)
 
 		free(arr);
 
-		test_assert(want == got, "expected: %zu, got: %zu", want, got);
+		test_assert(want == got, "case[%zu], expected: %zu, got: %zu",
+			    i, want, got);
 	}
 	return 0;
 }
@@ -51,7 +52,8 @@ test_unit(test_isprime_spiral)
 
 		free(arr);
 
-		test_assert(input * input == got, "expected: %zu, got: %zu",
+		test_assert(input * input == got,
+			    "case[%zu]: expected: %zu, got: %zu", i,
 			    input * input, got);
 	}
 	return 0;
