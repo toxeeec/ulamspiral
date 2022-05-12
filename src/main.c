@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 
 	int c;
 
-	while ((c = getopt(argc, argv, "f")) != -1) {
+	while ((c = getopt(argc, argv, "fp:")) != -1) {
 		switch (c) {
 		case 'f': flags |= FORCE; break;
 		}
@@ -26,12 +26,15 @@ int main(int argc, char **argv)
 
 	char *file_name = argv[optind];
 
-	CHECK_WITH_MESSAGE(!is_number(argv[optind + 1]),
-			   "Width must be a number.");
-	CHECK_WITH_MESSAGE(!is_positive_number(argv[optind + 1]),
-			   "Width must be greater than 0.");
+	int32_t width = strtol(argv[optind + 1], NULL, 10);
 
-	uint32_t width = atoi(argv[optind + 1]);
+	if (errno) {
+		THROW();
+	}
+
+	if (width <= 0) {
+		THROW_WITH_MESSAGE("Width must be greater than 0");
+	}
 
 	create_png_file(file_name, width, flags);
 
