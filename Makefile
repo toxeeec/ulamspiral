@@ -6,12 +6,9 @@ OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(wildcard $(SRC)/*.c))
 TEST=test
 TESTH=test.h
 TESTBINS=$(patsubst $(TEST)/%.c, $(TEST)/bin/%, $(wildcard $(TEST)/*.c))
-BIN=bin
+BIN=spiral
 
 all: build
-
-$(BIN):
-	mkdir $@
 
 $(OBJ):
 	mkdir $@
@@ -22,7 +19,7 @@ $(TEST)/bin:
 $(OBJ)/%.o: $(SRC)/%.c | $(OBJ)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
-$(BIN)/main: $(OBJS) | $(BIN)
+$(BIN): $(OBJS)
 	$(CC) $(CFLAGS) -lz $(OBJS) -o $@
 
 $(TEST)/bin/%: $(TEST)/%.c $(OBJS) $(TEST)/$(TESTH)
@@ -31,14 +28,14 @@ $(TEST)/bin/%: $(TEST)/%.c $(OBJS) $(TEST)/$(TESTH)
 $(TEST): $(TEST)/bin $(TESTBINS)
 	for test in $(TESTBINS) ; do ./$$test ; done
 
-build: $(BIN)/main
+build: $(BIN)
 
 run: build
-	./$(BIN)/main
+	./$(BIN)
 
 release: CFLAGS=-o2 -DNDEBUG
 release: clean
-release: $(BIN)/main
+release: $(BIN)
 
 clean:
-	$(RM) -r $(BIN)/* $(OBJ)/* $(TEST)/bin/*
+	$(RM) -r $(BIN) $(OBJ)/* $(TEST)/bin/* *.png
