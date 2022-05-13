@@ -3,17 +3,15 @@
 
 #include <errno.h>
 #include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h>  // perror, fprintf
+#include <stdlib.h> // exit
 
 extern int errno;
 
-extern char *program_name;
+extern const char *program_name;
 
-void set_program_name(char *name);
+void set_program_name(const char *name);
 void usage();
-bool is_number(char *c);
-bool is_positive_number(char *c);
 
 #define CHECK(x)                                                               \
 	do {                                                                   \

@@ -1,16 +1,17 @@
 #include "primes.h"
 #include "error.h"
 #include <assert.h>
-#include <math.h>
-#include <string.h>
+#include <math.h>   // sqrt
+#include <stdlib.h> // malloc, free
+#include <string.h> // memset
 
 #define SMALLEST_PRIME 2
 
-bool *isprime_range(size_t range)
+bool *isprime_range(const size_t range)
 {
-	assert(range > 0);
 	bool *arr = malloc(sizeof(bool) * (range));
 	CHECK_POINTER(arr);
+
 	memset(arr, 1, sizeof(bool) * range);
 	arr[0] = false;
 	arr[1] = false;
@@ -25,12 +26,15 @@ bool *isprime_range(size_t range)
 	return arr;
 }
 
-bool *isprime_spiral(size_t width)
+bool *isprime_spiral(const size_t width)
 {
 	bool *arr = isprime_range(width * width + 1);
-	bool *spiral = malloc(width * width);
+	CHECK_POINTER(arr);
 
-	size_t dirs[] = {1, -width, -1, width};
+	bool *spiral = malloc(width * width);
+	CHECK_POINTER(spiral);
+
+	const size_t dirs[] = {1, -width, -1, width};
 
 	size_t pos = width * width / 2;
 	if (width > 2 && width % 2 == 0) {

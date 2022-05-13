@@ -2,8 +2,8 @@
 #define TEST_H
 
 #include "../src/error.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h>  // asprintf, printf
+#include <stdlib.h> // free
 
 #define test_unit(name) static int name(void)
 #define test_suite(name) static int name(void)

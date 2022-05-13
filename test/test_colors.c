@@ -5,8 +5,8 @@
 test_unit(test_rgb_to_color)
 {
 	struct {
-		char *input;
-		struct color want;
+		const char *input;
+		const struct color want;
 	} cases[] = {
 	    {"FFF", (struct color){255, 255, 255}},
 	    {"ffffff", (struct color){255, 255, 255}},
@@ -16,12 +16,12 @@ test_unit(test_rgb_to_color)
 	    {"0000FF", (struct color){0, 0, 255}},
 	};
 	for (size_t i = 0; i < ARRAY_SIZE(cases); ++i) {
-		char *input = cases[i].input;
-		struct color want = cases[i].want;
-		struct color got = rgb_to_color(input);
-		bool condition = (want.red == got.red) &&
-				 (want.green == got.green) &&
-				 (want.blue == got.blue);
+		const char *input = cases[i].input;
+		const struct color want = cases[i].want;
+		const struct color got = rgb_to_color(input);
+		const bool condition = (want.red == got.red) &&
+				       (want.green == got.green) &&
+				       (want.blue == got.blue);
 		test_assert(
 		    condition,
 		    "case[%zu], expected: {%d, %d, %d}, got: {%d, %d, %d}", i,

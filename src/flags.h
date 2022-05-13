@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-int flags;
+uint32_t flags;
 
 #define FORCE 1
 

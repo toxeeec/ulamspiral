@@ -2,8 +2,8 @@
 #include "error.h"
 #include "flags.h"
 #include "png.h"
-#include "primes.h"
 #include <getopt.h>
+#include <stdlib.h> // strtol
 
 int main(int argc, char **argv)
 {
@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 
 	int c;
 
-	struct option long_options[] = {
+	const struct option long_options[] = {
 	    {"force", no_argument, NULL, 'f'},
 	    {"primary", required_argument, NULL, 'p'},
 	    {"secondary", required_argument, NULL, 's'},
@@ -45,9 +45,9 @@ int main(int argc, char **argv)
 		usage();
 	}
 
-	char *file_name = argv[optind];
+	const char *file_name = argv[optind];
 
-	int32_t width = strtol(argv[optind + 1], NULL, 10);
+	const int32_t width = strtol(argv[optind + 1], NULL, 10);
 
 	if (errno) {
 		THROW();
