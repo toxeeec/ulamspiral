@@ -59,6 +59,4 @@ int main(int argc, char **argv)
 
 	create_png_file(file_name, width, (struct color[]){secondary, primary},
 			flags);
-
-	return 0;
 }

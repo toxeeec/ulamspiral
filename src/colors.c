@@ -18,7 +18,7 @@ static uint8_t hextou8(const char *hex_string)
 	return val;
 }
 
-struct color rgb_to_color(const char *hex_string)
+struct color rgb_to_color(char *hex_string)
 {
 	const size_t len = strlen(hex_string);
 	if ((len != SHORT_HEX_LENGTH) && (len != LONG_HEX_LENGTH)) {
@@ -27,10 +27,13 @@ struct color rgb_to_color(const char *hex_string)
 	}
 
 	if (len == SHORT_HEX_LENGTH) {
-		const char new[LONG_HEX_LENGTH] = {
-		    hex_string[0], hex_string[0], hex_string[1],
-		    hex_string[1], hex_string[2], hex_string[2],
-		};
+		char *new = malloc(sizeof(char) * LONG_HEX_LENGTH);
+		new[0] = hex_string[0];
+		new[1] = hex_string[0];
+		new[2] = hex_string[1];
+		new[3] = hex_string[1];
+		new[4] = hex_string[2];
+		new[5] = hex_string[2];
 		hex_string = new;
 	}
 
@@ -38,5 +41,10 @@ struct color rgb_to_color(const char *hex_string)
 	c.red = hextou8(&hex_string[0]);
 	c.green = hextou8(&hex_string[2]);
 	c.blue = hextou8(&hex_string[4]);
+
+	if (len == SHORT_HEX_LENGTH) {
+		free(hex_string);
+	}
+
 	return c;
 }

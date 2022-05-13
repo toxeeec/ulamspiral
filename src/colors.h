@@ -9,6 +9,6 @@ struct color {
 	uint8_t blue;
 };
 
-struct color rgb_to_color(const char *hex_string);
+struct color rgb_to_color(char *hex_string);
 
 #endif
