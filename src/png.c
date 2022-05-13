@@ -28,12 +28,6 @@ struct header {
 	uint8_t interlace_method;
 };
 
-struct color {
-	uint8_t red;
-	uint8_t green;
-	uint8_t blue;
-};
-
 static void write_chunk_size(FILE *f, uint32_t size)
 {
 	assert(f != NULL);
@@ -171,17 +165,18 @@ static void write_trailer(FILE *f)
 	write_chunk(f, TRAILER_CHUNK_TYPE, NULL, 0);
 }
 
-void create_png_file(char *name, uint32_t width, uint32_t flags)
+void create_png_file(char *name, uint32_t width, struct color *colors,
+		     uint32_t flags)
 {
 	if (!(flags & FORCE)) {
 		// file exists
-		CHECK_WITH_CODE(!access(name, F_OK), EEXIST);
+		if (!access(name, F_OK)) {
+			THROW_WITH_CODE(EEXIST);
+		}
 	}
 
 	FILE *f = fopen(name, "wb");
 	CHECK_POINTER(f);
-
-	struct color colors[] = {{0, 0, 0}, {255, 255, 255}};
 
 	uint64_t signature = htonll(SIGNATURE);
 	fwrite(&signature, sizeof(signature), 1, f);

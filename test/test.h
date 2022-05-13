@@ -12,7 +12,7 @@
 	do {                                                                   \
 		if (!(cond)) {                                                 \
 			char *msgf;                                            \
-			CHECK(asprintf(&msgf, msg, __VA_ARGS__) == -1);        \
+			CHECK(asprintf(&msgf, msg, __VA_ARGS__));              \
 			printf("FAIL: %s\n", __func__);                        \
 			printf("\t%s:%d: %s\n", __FILE__, __LINE__, msgf);     \
 			free(msgf);                                            \
@@ -29,8 +29,10 @@
 	} while (0)
 
 #define test_run(name)                                                         \
-	int main(void)                                                         \
+	int main(int argc, char **argv)                                        \
 	{                                                                      \
+		(void)argc;                                                    \
+		set_program_name(argv[0]);                                     \
 		int result = name();                                           \
 		if (!result) {                                                 \
 			printf("PASS: %s\n", __FILE__);                        \

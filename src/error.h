@@ -46,6 +46,13 @@ bool is_positive_number(char *c);
 		exit(EXIT_FAILURE);                                            \
 	} while (0)
 
+#define THROW_WITH_CODE(code)                                                  \
+	do {                                                                   \
+		errno = code;                                                  \
+		perror(program_name);                                          \
+		exit(EXIT_FAILURE);                                            \
+	} while (0)
+
 #define THROW_WITH_MESSAGE(message)                                            \
 	do {                                                                   \
 		fprintf(stderr, "%s: %s\n", program_name, message);            \

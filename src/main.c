@@ -1,3 +1,4 @@
+#include "colors.h"
 #include "error.h"
 #include "flags.h"
 #include "png.h"
@@ -12,11 +13,23 @@ int main(int argc, char **argv)
 		usage();
 	}
 
+	// primary white, secondary black
+	struct color primary = {255, 255, 255};
+	struct color secondary = {0, 0, 0};
+
 	int c;
 
-	while ((c = getopt(argc, argv, "fp:")) != -1) {
+	while ((c = getopt(argc, argv, "fp:s:")) != -1) {
 		switch (c) {
 		case 'f': flags |= FORCE; break;
+		case 'p': {
+			primary = rgb_to_color(optarg);
+			break;
+		}
+		case 's': {
+			secondary = rgb_to_color(optarg);
+			break;
+		}
 		}
 	}
 
@@ -36,7 +49,8 @@ int main(int argc, char **argv)
 		THROW_WITH_MESSAGE("Width must be greater than 0");
 	}
 
-	create_png_file(file_name, width, flags);
+	create_png_file(file_name, width, (struct color[]){secondary, primary},
+			flags);
 
 	return 0;
 }
