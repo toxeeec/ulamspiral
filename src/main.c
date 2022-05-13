@@ -3,7 +3,7 @@
 #include "flags.h"
 #include "png.h"
 #include "primes.h"
-#include <unistd.h>
+#include <getopt.h>
 
 int main(int argc, char **argv)
 {
@@ -19,7 +19,15 @@ int main(int argc, char **argv)
 
 	int c;
 
-	while ((c = getopt(argc, argv, "fp:s:")) != -1) {
+	struct option long_options[] = {
+	    {"force", no_argument, NULL, 'f'},
+	    {"primary", required_argument, NULL, 'p'},
+	    {"secondary", required_argument, NULL, 's'},
+	    {0, 0, 0, 0},
+	};
+
+	while ((c = getopt_long(argc, argv, "fp:s:", long_options, NULL)) !=
+	       -1) {
 		switch (c) {
 		case 'f': flags |= FORCE; break;
 		case 'p': {
