@@ -36,9 +36,10 @@ bool *isprime_spiral(const size_t width)
 
 	const size_t dirs[] = {1, -width, -1, width};
 
-	size_t pos = width * width / 2;
-	if (width > 2 && width % 2 == 0) {
-		++pos;
+	size_t pos = (width + 1) * (width / 2);
+
+	if (width % 2 == 0) {
+		--pos;
 	}
 
 	size_t before_turn = 1;
