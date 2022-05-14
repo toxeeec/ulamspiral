@@ -23,7 +23,7 @@ struct color rgb_to_color(char *hex_string)
 	const size_t len = strlen(hex_string);
 	if ((len != SHORT_HEX_LENGTH) && (len != LONG_HEX_LENGTH)) {
 		THROW_WITH_MESSAGE(
-		    "Color must be either in format FFF or FFFFFF");
+		    "Color must be either in format RGB or RRGGBB");
 	}
 
 	if (len == SHORT_HEX_LENGTH) {

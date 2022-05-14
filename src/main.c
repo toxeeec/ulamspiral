@@ -40,6 +40,7 @@ int main(int argc, char **argv)
 			secondary = rgb_to_color(optarg);
 			break;
 		}
+		default: usage();
 		}
 	}
 
