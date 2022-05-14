@@ -1,4 +1,4 @@
-#include "png.h"
+#include "colors.h"
 #include "error.h"
 #include "flags.h"
 #include "primes.h"
@@ -10,7 +10,7 @@
 #include <unistd.h> // access
 #include <zlib.h>   // crc32, compressBound, compress2
 
-#define SIGNATURE 0x89504E470D0A1A0A
+#define SIGNATURE ((char[]){137, 80, 78, 71, 13, 10, 26, 10})
 #define COLOR_DEPTH 1 // 2 colors
 #define COLOR_SIZE (sizeof(uint8_t) * 3)
 
@@ -187,8 +187,7 @@ void create_png_file(const char *name, const uint32_t width,
 	FILE *f = fopen(name, "wb");
 	CHECK_POINTER(f);
 
-	const uint64_t signature = htonll(SIGNATURE);
-	fwrite(&signature, sizeof(signature), 1, f);
+	fwrite(SIGNATURE, sizeof(SIGNATURE), 1, f);
 
 	write_header(f, width);
 	write_palette(f, colors, 2);

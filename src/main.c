@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 1
+
 #include "colors.h"
 #include "error.h"
 #include "flags.h"

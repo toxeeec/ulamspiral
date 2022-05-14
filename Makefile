@@ -1,5 +1,5 @@
 CC=clang
-CFLAGS=-g -Wall -Wextra -std=c17
+CFLAGS=-g -Wall -Wextra
 SRC=src
 OBJ=obj
 OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(wildcard $(SRC)/*.c))
