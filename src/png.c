@@ -111,9 +111,7 @@ static void write_data_palette_based(FILE *f, const uint32_t width,
 	assert(f != NULL);
 
 	uint32_t padding = 8 - width % 8;
-	if (padding == 8) {
-		padding = 0;
-	}
+	if (padding == 8) padding = 0;
 	const uint32_t bytes = (width + padding) / 8;
 	const uint32_t full_bytes = width / 8;
 	const uint32_t scanline_size = 1 + bytes;
@@ -177,12 +175,8 @@ static void write_trailer(FILE *f)
 void create_png_file(const char *name, const uint32_t width,
 		     const struct color *colors, const uint32_t flags)
 {
-	if (!(flags & FORCE)) {
-		// file exists
-		if (!access(name, F_OK)) {
-			THROW_WITH_CODE(EEXIST);
-		}
-	}
+	// file exists
+	if (!(flags & FORCE) && !access(name, F_OK)) THROW_WITH_CODE(EEXIST);
 
 	FILE *f = fopen(name, "wb");
 	CHECK_POINTER(f);
