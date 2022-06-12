@@ -1,6 +1,6 @@
 <h1 align="center">ulamspiral</h1>
 
-A C program to create a PNG file of an [Ulam spiral](https://en.wikipedia.org/wiki/Ulam_spiral).
+A C app for creating a PNG file of an [Ulam spiral](https://en.wikipedia.org/wiki/Ulam_spiral).
 
 Conforms to POSIX.1-1990 and ISO C (1990).
 
