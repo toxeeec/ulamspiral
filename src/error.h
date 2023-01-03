@@ -3,8 +3,8 @@
 
 #include <errno.h>
 #include <stdbool.h>
-#include <stdio.h>  // perror, fprintf
-#include <stdlib.h> // exit
+#include <stdio.h>
+#include <stdlib.h>
 
 extern int errno;
 

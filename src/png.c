@@ -2,13 +2,13 @@
 #include "error.h"
 #include "flags.h"
 #include "primes.h"
-#include <arpa/inet.h> // htonl
+#include <arpa/inet.h>
 #include <assert.h>
-#include <stdio.h>  // fwrite, fopen, fclose
-#include <stdlib.h> // malloc, free
-#include <string.h> // memcpy
-#include <unistd.h> // access
-#include <zlib.h>   // crc32, compressBound, compress2
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <zlib.h>
 
 #define SIGNATURE ((char[]){137, 80, 78, 71, 13, 10, 26, 10})
 #define COLOR_DEPTH 1 // 2 colors
@@ -111,9 +111,7 @@ static void write_data_palette_based(FILE *f, const uint32_t width,
 	assert(f != NULL);
 
 	uint32_t padding = 8 - width % 8;
-	if (padding == 8) {
-		padding = 0;
-	}
+	if (padding == 8) padding = 0;
 	const uint32_t bytes = (width + padding) / 8;
 	const uint32_t full_bytes = width / 8;
 	const uint32_t scanline_size = 1 + bytes;
@@ -177,12 +175,8 @@ static void write_trailer(FILE *f)
 void create_png_file(const char *name, const uint32_t width,
 		     const struct color *colors, const uint32_t flags)
 {
-	if (!(flags & FORCE)) {
-		// file exists
-		if (!access(name, F_OK)) {
-			THROW_WITH_CODE(EEXIST);
-		}
-	}
+	// file exists
+	if (!(flags & FORCE) && !access(name, F_OK)) THROW_WITH_CODE(EEXIST);
 
 	FILE *f = fopen(name, "wb");
 	CHECK_POINTER(f);

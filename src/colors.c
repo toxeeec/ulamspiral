@@ -1,7 +1,7 @@
 #include "colors.h"
 #include "error.h"
-#include <stdlib.h> // strtol
-#include <string.h> // memcpy, strlen
+#include <stdlib.h>
+#include <string.h>
 
 #define SHORT_HEX_LENGTH 3 // FFF
 #define LONG_HEX_LENGTH 6  // FFFFFF
@@ -12,9 +12,7 @@ static uint8_t hextou8(const char *hex_string)
 	memcpy(s, hex_string, 2);
 	s[2] = 0;
 	const uint8_t val = strtol(s, NULL, 16);
-	if (errno) {
-		THROW_WITH_MESSAGE("Color must be a valid hex number");
-	}
+	if (errno) THROW_WITH_MESSAGE("Color must be a valid hex number");
 	return val;
 }
 
@@ -42,9 +40,7 @@ struct color rgb_to_color(char *hex_string)
 	c.green = hextou8(&hex_string[2]);
 	c.blue = hextou8(&hex_string[4]);
 
-	if (len == SHORT_HEX_LENGTH) {
-		free(hex_string);
-	}
+	if (len == SHORT_HEX_LENGTH) free(hex_string);
 
 	return c;
 }

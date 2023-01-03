@@ -1,9 +1,9 @@
 #include "primes.h"
 #include "error.h"
 #include <assert.h>
-#include <math.h>   // sqrt
-#include <stdlib.h> // malloc, free
-#include <string.h> // memset
+#include <math.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define SMALLEST_PRIME 2
 
@@ -16,9 +16,7 @@ bool *isprime_range(const size_t range)
 	arr[0] = false;
 	arr[1] = false;
 	for (size_t i = 2; i < sqrt(range); ++i) {
-		if (!arr[i]) {
-			continue;
-		}
+		if (!arr[i]) continue;
 		for (size_t j = i * i; j < range; j += i) {
 			arr[j] = false;
 		}
@@ -38,9 +36,7 @@ bool *isprime_spiral(const size_t width)
 
 	size_t pos = (width + 1) * (width / 2);
 
-	if (width % 2 == 0) {
-		--pos;
-	}
+	if (width % 2 == 0) --pos;
 
 	size_t before_turn = 1;
 	size_t turn_count = 1;
@@ -52,9 +48,7 @@ bool *isprime_spiral(const size_t width)
 		if (i % before_turn == 0) {
 			dir = (dir + 1) % 4;
 			turn_count++;
-			if (turn_count % 2 == 0) {
-				++before_turn;
-			}
+			if (turn_count % 2 == 0) ++before_turn;
 		}
 	}
 
